@@ -4,6 +4,7 @@ A complete Human Resource Management System with modern UI, dark mode, and full 
 
 ## ✨ Features
 
+
 - 🔐 **Authentication System** - HR Admin and Employee login
 - 👥 **Employee Management** - Add, edit, delete employees
 - 📅 **Attendance Tracking** - Check-in/Check-out with late marking
