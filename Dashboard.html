@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional HR System | Elegant Design</title>
+    <title>Professional HR System | Complete Features</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <style>
         * {
             margin: 0;
@@ -13,7 +16,6 @@
             box-sizing: border-box;
         }
 
-        /* Light Theme (Default) */
         :root {
             --bg-primary: #f0f2f5;
             --bg-secondary: #ffffff;
@@ -30,7 +32,6 @@
             --table-hover: #f7fafc;
         }
 
-        /* Dark Theme */
         body.dark {
             --bg-primary: #0f172a;
             --bg-secondary: #1e293b;
@@ -41,9 +42,6 @@
             --border-color: #334155;
             --gradient-start: #818cf8;
             --gradient-end: #a855f7;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.2);
-            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.3);
             --table-hover: #334155;
         }
 
@@ -54,7 +52,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Cards */
         .card {
             background: var(--bg-card);
             border-radius: 20px;
@@ -68,7 +65,6 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Stats Cards */
         .stat-card {
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             border-radius: 20px;
@@ -79,10 +75,8 @@
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.3);
         }
 
-        /* Table Styles */
         .table-wrapper {
             overflow-x: auto;
             border-radius: 16px;
@@ -104,7 +98,6 @@
             font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: var(--text-secondary);
         }
 
@@ -118,7 +111,6 @@
             background: var(--table-hover);
         }
 
-        /* Badges */
         .badge {
             padding: 5px 12px;
             border-radius: 20px;
@@ -127,36 +119,12 @@
             display: inline-block;
         }
 
-        .badge-success {
-            background: #10b98120;
-            color: #10b981;
-            border: 1px solid #10b98140;
-        }
+        .badge-success { background: #10b98120; color: #10b981; border: 1px solid #10b98140; }
+        .badge-warning { background: #f59e0b20; color: #f59e0b; border: 1px solid #f59e0b40; }
+        .badge-danger { background: #ef444420; color: #ef4444; border: 1px solid #ef444440; }
+        .badge-info { background: #3b82f620; color: #3b82f6; border: 1px solid #3b82f640; }
+        .badge-primary { background: #667eea20; color: #667eea; border: 1px solid #667eea40; }
 
-        .badge-warning {
-            background: #f59e0b20;
-            color: #f59e0b;
-            border: 1px solid #f59e0b40;
-        }
-
-        .badge-danger {
-            background: #ef444420;
-            color: #ef4444;
-            border: 1px solid #ef444440;
-        }
-
-        .badge-info {
-            background: #3b82f620;
-            color: #3b82f6;
-            border: 1px solid #3b82f640;
-        }
-
-        body.dark .badge-success { background: #10b98130; }
-        body.dark .badge-warning { background: #f59e0b30; }
-        body.dark .badge-danger { background: #ef444430; }
-        body.dark .badge-info { background: #3b82f630; }
-
-        /* Buttons */
         .btn {
             padding: 10px 20px;
             border-radius: 12px;
@@ -177,22 +145,14 @@
             box-shadow: 0 10px 20px -5px rgba(102, 126, 234, 0.4);
         }
 
-        .btn-success {
-            background: #10b981;
-            color: white;
-        }
+        .btn-success { background: #10b981; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-secondary { background: #64748b; color: white; }
 
-        .btn-danger {
-            background: #ef4444;
-            color: white;
-        }
-
-        /* Tabs */
         .tab-btn {
             padding: 10px 24px;
             border-radius: 12px;
             font-weight: 600;
-            transition: all 0.3s ease;
             cursor: pointer;
             background: transparent;
             color: var(--text-secondary);
@@ -205,7 +165,6 @@
             border: none;
         }
 
-        /* Input Fields */
         .input-field {
             width: 100%;
             padding: 12px 16px;
@@ -222,14 +181,62 @@
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        /* Profile Picture */
         .profile-pic {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
             cursor: pointer;
             border: 3px solid var(--gradient-start);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* ID Card Style */
+        .id-card {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .id-card p {
+            color: white;
+            margin: 5px 0;
+        }
+        
+        .id-card .id-number {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 30px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -309,16 +316,18 @@
     <div class="max-w-7xl mx-auto">
         <div class="flex justify-between items-center mb-8">
             <div class="flex items-center gap-4">
-                <img id="empProfilePic" class="profile-pic" src="https://ui-avatars.com/api/?background=667eea&color=fff&size=80" alt="Profile">
+                <img id="empProfilePic" class="profile-pic" src="https://ui-avatars.com/api/?background=667eea&color=fff&size=100" alt="Profile" onclick="openProfileModal()">
                 <div>
                     <h1 class="text-3xl font-bold" style="color: var(--text-primary)" id="empWelcomeName">Welcome</h1>
                     <p class="text-sm mt-1" style="color: var(--text-secondary)" id="empRole"></p>
+                    <p class="text-xs mt-1" style="color: var(--text-muted)" id="empJoinDate"></p>
                 </div>
             </div>
             <div class="flex gap-3">
                 <button onclick="toggleDarkMode()" class="btn" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color)">
                     <i class="fas fa-moon"></i> <span id="empDarkModeText">Dark</span>
                 </button>
+                <button onclick="openProfileModal()" class="btn btn-primary">👤 My Profile</button>
                 <button id="empLogoutBtn" class="btn btn-danger">Logout</button>
             </div>
         </div>
@@ -326,7 +335,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
             <div class="card p-6 text-center"><i class="fas fa-calendar-check text-2xl mb-2" style="color: var(--gradient-start)"></i><p class="text-2xl font-bold" id="empPresentDays">0</p><p style="color: var(--text-secondary)">Present Days</p></div>
             <div class="card p-6 text-center"><i class="fas fa-clock text-2xl mb-2" style="color: var(--gradient-start)"></i><p class="text-2xl font-bold" id="empTotalHours">0</p><p style="color: var(--text-secondary)">Total Hours</p></div>
-            <div class="card p-6 text-center"><i class="fas fa-exclamation-triangle text-2xl mb-2" style="color: var(--gradient-start)"></i><p class="text-2xl font-bold" id="empLateDays">0</p><p style="color: var(--text-secondary)">Late Arrivals</p></div>
+            <div class="card p-6 text-center"><i class="fas fa-birthday-cake text-2xl mb-2" style="color: var(--gradient-start)"></i><p class="text-lg font-bold" id="empBirthday">—</p><p style="color: var(--text-secondary)">Birthday</p></div>
         </div>
 
         <div class="flex gap-3 mb-6 flex-wrap">
@@ -342,10 +351,93 @@
     </div>
 </div>
 
+<!-- PROFILE MODAL (with Employee ID prominently displayed) -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold" style="color: var(--text-primary)">My Profile</h2>
+            <button onclick="closeModal('profileModal')" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+        </div>
+        
+        <!-- Employee ID Card Style Display -->
+        <div class="id-card">
+            <i class="fas fa-id-card text-2xl mb-2"></i>
+            <p>Employee ID Card</p>
+            <div class="id-number" id="profileEmpId">EMP001</div>
+            <p class="text-xs mt-2">Keep this ID for future reference</p>
+        </div>
+        
+        <form id="profileForm">
+            <div class="text-center mb-4">
+                <img id="modalProfilePic" class="profile-pic mx-auto" src="" alt="Profile">
+                <button type="button" onclick="document.getElementById('profilePicUpload').click()" class="btn btn-primary mt-2 text-sm">Change Photo</button>
+                <input type="file" id="profilePicUpload" accept="image/*" style="display:none" onchange="uploadProfilePicture(this)">
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Employee ID (Read Only)</label>
+                    <input type="text" id="profileEmpIdReadonly" readonly class="input-field" style="background: var(--bg-secondary); opacity: 0.8; font-family: monospace; font-weight: bold;">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Full Name</label>
+                    <input type="text" id="profileName" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Email Address</label>
+                    <input type="email" id="profileEmail" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Phone Number</label>
+                    <input type="tel" id="profilePhone" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Date of Birth</label>
+                    <input type="date" id="profileDob" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Joining Date</label>
+                    <input type="date" id="profileJoiningDate" class="input-field">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Address</label>
+                    <textarea id="profileAddress" rows="2" class="input-field"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ADD EMPLOYEE MODAL (HR) -->
+<div id="addEmployeeModal" class="modal">
+    <div class="modal-content">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold" style="color: var(--text-primary)">Add New Employee</h2>
+            <button onclick="closeModal('addEmployeeModal')" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+        </div>
+        <form id="addEmployeeFormModal">
+            <div class="space-y-3">
+                <div><label class="block text-sm font-semibold mb-1">Employee ID *</label><input type="text" id="newEmpId" class="input-field" required placeholder="e.g., EMP002"></div>
+                <div><label class="block text-sm font-semibold mb-1">Full Name *</label><input type="text" id="newEmpName" class="input-field" required></div>
+                <div><label class="block text-sm font-semibold mb-1">Role *</label><input type="text" id="newEmpRole" class="input-field" required></div>
+                <div><label class="block text-sm font-semibold mb-1">Password *</label><input type="text" id="newEmpPassword" class="input-field" required></div>
+                <div><label class="block text-sm font-semibold mb-1">Email</label><input type="email" id="newEmpEmail" class="input-field"></div>
+                <div><label class="block text-sm font-semibold mb-1">Phone</label><input type="tel" id="newEmpPhone" class="input-field"></div>
+                <div><label class="block text-sm font-semibold mb-1">Joining Date</label><input type="date" id="newEmpJoiningDate" class="input-field"></div>
+                <button type="submit" class="btn btn-primary w-full">Add Employee</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
-    // ========== INITIAL DATA ==========
+    // ========== INITIAL DATA WITH EXTRA FIELDS ==========
     let employees = {
-        "EMP001": { id: "EMP001", name: "Ayesha Khan", role: "Senior Developer", password: "pass123", profilePic: "" }
+        "EMP001": { 
+            id: "EMP001", name: "Ayesha Khan", role: "Senior Developer", password: "pass123", 
+            profilePic: "", email: "ayesha@company.com", phone: "+92 300 1234567", 
+            dob: "1995-03-15", joiningDate: "2022-01-10", address: "Karachi, Pakistan"
+        }
     };
     let announcements = [
         { id: 1, title: "Welcome to HR System", message: "New HR management system launched!", date: "2026-04-06" }
@@ -356,22 +448,35 @@
     let wfhRequests = { "EMP001": [] };
     let currentEmployee = null;
 
-    // ========== DARK MODE ==========
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark');
-        let isDark = document.body.classList.contains('dark');
-        localStorage.setItem('darkMode', isDark);
-        let darkText = document.getElementById('darkModeText');
-        let empDarkText = document.getElementById('empDarkModeText');
-        if(darkText) darkText.textContent = isDark ? 'Light' : 'Dark';
-        if(empDarkText) empDarkText.textContent = isDark ? 'Light' : 'Dark';
-    }
-    
-    if(localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark');
+    // Toast Notification Function
+    function showToast(message, type = 'success') {
+        Toastify({
+            text: message,
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' :
+                          type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' :
+                          'linear-gradient(135deg, #3b82f6, #2563eb)',
+                borderRadius: '12px',
+                padding: '12px 20px',
+                fontSize: '14px'
+            }
+        }).showToast();
     }
 
-    // ========== DATA FUNCTIONS ==========
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        let darkText = document.getElementById('darkModeText');
+        let empDarkText = document.getElementById('empDarkModeText');
+        if(darkText) darkText.textContent = document.body.classList.contains('dark') ? 'Light' : 'Dark';
+        if(empDarkText) empDarkText.textContent = document.body.classList.contains('dark') ? 'Light' : 'Dark';
+    }
+    
+    if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
+
     function saveData() {
         localStorage.setItem("hr_employees", JSON.stringify(employees));
         localStorage.setItem("hr_announcements", JSON.stringify(announcements));
@@ -379,21 +484,12 @@
         localStorage.setItem("hr_attendance", JSON.stringify(attendance));
         localStorage.setItem("hr_leaveRequests", JSON.stringify(leaveRequests));
         localStorage.setItem("hr_wfhRequests", JSON.stringify(wfhRequests));
-        console.log("Data saved:", employees);
     }
     
     function loadData() {
         let storedEmps = localStorage.getItem("hr_employees");
-        if(storedEmps) {
-            employees = JSON.parse(storedEmps);
-            console.log("Employees loaded:", employees);
-        } else {
-            // Default employee
-            employees = {
-                "EMP001": { id: "EMP001", name: "Ayesha Khan", role: "Senior Developer", password: "pass123", profilePic: "" }
-            };
-            saveData();
-        }
+        if(storedEmps) employees = JSON.parse(storedEmps);
+        else employees = { "EMP001": { id: "EMP001", name: "Ayesha Khan", role: "Senior Developer", password: "pass123", profilePic: "", email: "ayesha@company.com", phone: "+92 300 1234567", dob: "1995-03-15", joiningDate: "2022-01-10", address: "Karachi, Pakistan" } };
         
         let storedAnn = localStorage.getItem("hr_announcements");
         if(storedAnn) announcements = JSON.parse(storedAnn);
@@ -414,7 +510,6 @@
         if(storedWFH) wfhRequests = JSON.parse(storedWFH);
         else wfhRequests = { "EMP001": [] };
         
-        // Initialize for all employees
         for(let id in employees) {
             if(!attendance[id]) attendance[id] = [];
             if(!leaveRequests[id]) leaveRequests[id] = [];
@@ -432,7 +527,6 @@
         return date ? new Date(date).toLocaleTimeString() : "--:--";
     }
 
-    // ========== SESSION MANAGEMENT ==========
     function saveLoginState(type, id) {
         sessionStorage.setItem('loggedIn', 'true');
         sessionStorage.setItem('userType', type);
@@ -459,23 +553,24 @@
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('employeeDashboard').style.display = 'block';
                 loadEmployeeDashboard(id);
-            } else {
-                // Invalid session, clear it
-                clearLoginState();
             }
         }
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'flex';
     }
 
     // ========== HR FUNCTIONS ==========
     function updateHRStats() {
         let pendingLeaves = 0, pendingWFH = 0;
         for(let id in leaveRequests) {
-            if(leaveRequests[id]) {
-                leaveRequests[id].forEach(r => { if(r.status === 'pending') pendingLeaves++; });
-            }
-            if(wfhRequests[id]) {
-                wfhRequests[id].forEach(r => { if(r.status === 'pending') pendingWFH++; });
-            }
+            if(leaveRequests[id]) leaveRequests[id].forEach(r => { if(r.status === 'pending') pendingLeaves++; });
+            if(wfhRequests[id]) wfhRequests[id].forEach(r => { if(r.status === 'pending') pendingWFH++; });
         }
         document.getElementById('totalEmployees').innerHTML = Object.keys(employees).length;
         document.getElementById('pendingLeaves').innerHTML = pendingLeaves;
@@ -504,18 +599,21 @@
         let html = `
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold" style="color: var(--text-primary)">All Employees</h2>
-                <button onclick="addEmployee()" class="btn btn-primary">+ Add Employee</button>
+                <button onclick="openModal('addEmployeeModal')" class="btn btn-primary">+ Add Employee</button>
             </div>
             <div class="table-wrapper">
                 <table class="data-table">
-                    <thead><tr><th>ID</th><th>Name</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+                    <thead><tr><th>ID</th><th>Name</th><th>Role</th><th>Email</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
                     <tbody>
         `;
         for(let id in employees) {
+            let emp = employees[id];
             html += `<tr>
-                <td><strong>${id}</strong></td>
-                <td>${employees[id].name}</td>
-                <td>${employees[id].role}</td>
+                <td><strong><span class="badge badge-primary">${id}</span></strong></td>
+                <td>${emp.name}</td>
+                <td>${emp.role}</td>
+                <td>${emp.email || '—'}</td>
+                <td>${emp.phone || '—'}</td>
                 <td><span class="badge badge-success">Active</span></td>
                 <td><button onclick="deleteEmployee('${id}')" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button></td>
             </tr>`;
@@ -524,25 +622,34 @@
         document.getElementById('hrPanelContent').innerHTML = html;
     }
     
-    function addEmployee() {
-        let id = prompt("Enter Employee ID:");
-        if(id && !employees[id]) {
-            let name = prompt("Enter Name:");
-            let role = prompt("Enter Role:");
-            let password = prompt("Enter Password:");
-            employees[id] = { id, name, role, password, profilePic: "" };
-            attendance[id] = [];
-            leaveRequests[id] = [];
-            wfhRequests[id] = [];
-            leaveBalance[id] = { Sick: 12, Casual: 10, Annual: 15 };
-            saveData();
-            renderEmployees();
-            updateHRStats();
-            alert("✅ Employee added!");
-        } else if(employees[id]) {
-            alert("❌ Employee ID already exists!");
+    document.getElementById('addEmployeeFormModal')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let id = document.getElementById('newEmpId').value.trim();
+        if(employees[id]) {
+            showToast("Employee ID already exists!", "error");
+            return;
         }
-    }
+        employees[id] = {
+            id: id,
+            name: document.getElementById('newEmpName').value,
+            role: document.getElementById('newEmpRole').value,
+            password: document.getElementById('newEmpPassword').value,
+            email: document.getElementById('newEmpEmail').value,
+            phone: document.getElementById('newEmpPhone').value,
+            joiningDate: document.getElementById('newEmpJoiningDate').value,
+            profilePic: ""
+        };
+        attendance[id] = [];
+        leaveRequests[id] = [];
+        wfhRequests[id] = [];
+        leaveBalance[id] = { Sick: 12, Casual: 10, Annual: 15 };
+        saveData();
+        renderEmployees();
+        updateHRStats();
+        closeModal('addEmployeeModal');
+        showToast("Employee added successfully!", "success");
+        e.target.reset();
+    });
     
     function deleteEmployee(id) {
         if(confirm(`Delete ${id}?`)) {
@@ -554,7 +661,7 @@
             saveData();
             renderEmployees();
             updateHRStats();
-            alert("✅ Employee deleted!");
+            showToast("Employee deleted!", "success");
         }
     }
     
@@ -613,19 +720,9 @@
     }
     
     function renderAnnouncements() {
-        let html = `
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold" style="color: var(--text-primary)">Announcements</h2>
-                <button onclick="postAnnouncement()" class="btn btn-primary">+ Post</button>
-            </div>
-        `;
-        if(announcements.length === 0) {
-            html += '<div class="text-center p-8" style="color: var(--text-muted)">No announcements yet</div>';
-        } else {
-            announcements.forEach(a => {
-                html += `<div class="card p-4 mb-3"><strong class="text-lg">${a.title}</strong><p class="mt-1">${a.message}</p><small style="color: var(--text-muted)">📅 ${a.date}</small></div>`;
-            });
-        }
+        let html = `<div class="flex justify-between items-center mb-6"><h2 class="text-xl font-bold">Announcements</h2><button onclick="postAnnouncement()" class="btn btn-primary">+ Post</button></div>`;
+        if(announcements.length === 0) html += '<div class="text-center p-8" style="color: var(--text-muted)">No announcements yet</div>';
+        else announcements.forEach(a => { html += `<div class="card p-4 mb-3"><strong class="text-lg">${a.title}</strong><p class="mt-1">${a.message}</p><small style="color: var(--text-muted)">📅 ${a.date}</small></div>`; });
         document.getElementById('hrPanelContent').innerHTML = html;
     }
     
@@ -637,65 +734,83 @@
             saveData();
             renderAnnouncements();
             updateHRStats();
-            alert("✅ Announcement posted!");
+            showToast("Announcement posted!", "success");
         }
     }
     
-    window.approveLeave = (id, idx) => { 
-        if(leaveRequests[id] && leaveRequests[id][idx]) {
-            leaveRequests[id][idx].status = 'approved'; 
-            saveData(); 
-            renderLeaveRequests(); 
-            updateHRStats(); 
-            alert("✅ Leave approved!");
+    window.approveLeave = (id, idx) => { leaveRequests[id][idx].status = 'approved'; saveData(); renderLeaveRequests(); updateHRStats(); showToast("Leave approved!", "success"); };
+    window.rejectLeave = (id, idx) => { leaveRequests[id][idx].status = 'rejected'; saveData(); renderLeaveRequests(); updateHRStats(); showToast("Leave rejected!", "error"); };
+    window.approveWFH = (id, idx) => { wfhRequests[id][idx].status = 'approved'; saveData(); renderWFHRequests(); updateHRStats(); showToast("WFH approved!", "success"); };
+    window.rejectWFH = (id, idx) => { wfhRequests[id][idx].status = 'rejected'; saveData(); renderWFHRequests(); updateHRStats(); showToast("WFH rejected!", "error"); };
+
+    // ========== PROFILE FUNCTIONS ==========
+    function openProfileModal() {
+        if(currentEmployee) {
+            // Set Employee ID in both places
+            document.getElementById('profileEmpId').innerHTML = currentEmployee.id;
+            document.getElementById('profileEmpIdReadonly').value = currentEmployee.id;
+            document.getElementById('modalProfilePic').src = currentEmployee.profilePic || `https://ui-avatars.com/api/?background=667eea&color=fff&size=100&name=${currentEmployee.name}`;
+            document.getElementById('profileName').value = currentEmployee.name || '';
+            document.getElementById('profileEmail').value = currentEmployee.email || '';
+            document.getElementById('profilePhone').value = currentEmployee.phone || '';
+            document.getElementById('profileDob').value = currentEmployee.dob || '';
+            document.getElementById('profileJoiningDate').value = currentEmployee.joiningDate || '';
+            document.getElementById('profileAddress').value = currentEmployee.address || '';
+            openModal('profileModal');
         }
-    };
+    }
     
-    window.rejectLeave = (id, idx) => { 
-        if(leaveRequests[id] && leaveRequests[id][idx]) {
-            leaveRequests[id][idx].status = 'rejected'; 
-            saveData(); 
-            renderLeaveRequests(); 
-            updateHRStats(); 
-            alert("❌ Leave rejected!");
+    function uploadProfilePicture(input) {
+        if(input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                if(currentEmployee) {
+                    employees[currentEmployee.id].profilePic = e.target.result;
+                    saveData();
+                    document.getElementById('empProfilePic').src = e.target.result;
+                    document.getElementById('modalProfilePic').src = e.target.result;
+                    showToast("Profile picture updated!", "success");
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
         }
-    };
+    }
     
-    window.approveWFH = (id, idx) => { 
-        if(wfhRequests[id] && wfhRequests[id][idx]) {
-            wfhRequests[id][idx].status = 'approved'; 
-            saveData(); 
-            renderWFHRequests(); 
-            updateHRStats(); 
-            alert("✅ WFH approved!");
+    document.getElementById('profileForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(currentEmployee) {
+            employees[currentEmployee.id].name = document.getElementById('profileName').value;
+            employees[currentEmployee.id].email = document.getElementById('profileEmail').value;
+            employees[currentEmployee.id].phone = document.getElementById('profilePhone').value;
+            employees[currentEmployee.id].dob = document.getElementById('profileDob').value;
+            employees[currentEmployee.id].joiningDate = document.getElementById('profileJoiningDate').value;
+            employees[currentEmployee.id].address = document.getElementById('profileAddress').value;
+            saveData();
+            loadEmployeeDashboard(currentEmployee.id);
+            closeModal('profileModal');
+            showToast("Profile updated successfully!", "success");
         }
-    };
-    
-    window.rejectWFH = (id, idx) => { 
-        if(wfhRequests[id] && wfhRequests[id][idx]) {
-            wfhRequests[id][idx].status = 'rejected'; 
-            saveData(); 
-            renderWFHRequests(); 
-            updateHRStats(); 
-            alert("❌ WFH rejected!");
-        }
-    };
+    });
 
     // ========== EMPLOYEE FUNCTIONS ==========
     function loadEmployeeDashboard(id) {
-        if(!employees[id]) {
-            alert("Employee not found!");
-            clearLoginState();
-            document.getElementById('employeeDashboard').style.display = 'none';
-            document.getElementById('loginContainer').style.display = 'flex';
-            return;
-        }
+        if(!employees[id]) return;
         currentEmployee = employees[id];
         document.getElementById('empWelcomeName').innerHTML = `Welcome, ${currentEmployee.name}`;
         document.getElementById('empRole').innerHTML = currentEmployee.role;
-        if(currentEmployee.profilePic) {
-            document.getElementById('empProfilePic').src = currentEmployee.profilePic;
+        document.getElementById('empJoinDate').innerHTML = `🆔 ID: ${currentEmployee.id} | 📅 Joined: ${currentEmployee.joiningDate || 'N/A'}`;
+        document.getElementById('empProfilePic').src = currentEmployee.profilePic || `https://ui-avatars.com/api/?background=667eea&color=fff&size=100&name=${currentEmployee.name}`;
+        
+        if(currentEmployee.dob) {
+            let today = new Date();
+            let dob = new Date(currentEmployee.dob);
+            if(today.getMonth() === dob.getMonth() && today.getDate() === dob.getDate()) {
+                document.getElementById('empBirthday').innerHTML = '🎂 Today!';
+            } else {
+                document.getElementById('empBirthday').innerHTML = currentEmployee.dob;
+            }
         }
+        
         updateEmpStats();
         showEmpTab('attendance');
     }
@@ -707,9 +822,7 @@
             if(rec.checkIn) {
                 present++;
                 if(rec.late) late++;
-                if(rec.checkIn && rec.checkOut) {
-                    totalHours += (new Date(rec.checkOut) - new Date(rec.checkIn)) / (1000*60*60);
-                }
+                if(rec.checkIn && rec.checkOut) totalHours += (new Date(rec.checkOut) - new Date(rec.checkIn)) / (1000*60*60);
             }
         });
         document.getElementById('empPresentDays').innerHTML = present;
@@ -719,19 +832,10 @@
     
     function showEmpTab(tab) {
         document.querySelectorAll('#employeeDashboard .tab-btn').forEach(btn => btn.classList.remove('active'));
-        if(tab === 'attendance') {
-            document.getElementById('empTabAttendance').classList.add('active');
-            renderEmpAttendance();
-        } else if(tab === 'leave') {
-            document.getElementById('empTabLeave').classList.add('active');
-            renderEmpLeave();
-        } else if(tab === 'wfh') {
-            document.getElementById('empTabWFH').classList.add('active');
-            renderEmpWFH();
-        } else if(tab === 'requests') {
-            document.getElementById('empTabRequests').classList.add('active');
-            renderEmpRequests();
-        }
+        if(tab === 'attendance') { document.getElementById('empTabAttendance').classList.add('active'); renderEmpAttendance(); }
+        else if(tab === 'leave') { document.getElementById('empTabLeave').classList.add('active'); renderEmpLeave(); }
+        else if(tab === 'wfh') { document.getElementById('empTabWFH').classList.add('active'); renderEmpWFH(); }
+        else if(tab === 'requests') { document.getElementById('empTabRequests').classList.add('active'); renderEmpRequests(); }
     }
     
     function renderEmpAttendance() {
@@ -740,40 +844,13 @@
         let todayRecord = records.find(r => r.date === today);
         let isCheckedIn = todayRecord && todayRecord.checkIn && !todayRecord.checkOut;
         
-        let html = `
-            <div class="text-center mb-8">
-                <div class="flex gap-4 justify-center">
-                    <button id="checkInBtn" class="btn btn-primary" ${isCheckedIn ? 'disabled' : ''}>✅ Check In</button>
-                    <button id="checkOutBtn" class="btn btn-danger" ${!isCheckedIn ? 'disabled' : ''}>⏰ Check Out</button>
-                </div>
-                <p class="mt-3 text-sm" style="color: var(--text-secondary)">${isCheckedIn ? '🟢 Currently checked in' : '⚪ Not checked in'}</p>
-            </div>
-            <h3 class="font-bold mb-4">📜 Attendance History</h3>
-            <div class="table-wrapper">
-                <table class="data-table">
-                    <thead><tr><th>Date</th><th>Check In</th><th>Check Out</th><th>Status</th></tr></thead>
-                    <tbody>
-        `;
-        if(records.length === 0) {
-            html += `<tr><td colspan="4" class="text-center">No attendance records found</td></tr>`;
-        } else {
-            records.slice().reverse().forEach(rec => {
-                let status = rec.late ? '<span class="badge badge-warning">Late</span>' : '<span class="badge badge-success">Present</span>';
-                html += `<tr>
-                    <td>${rec.date}</td>
-                    <td>${rec.checkIn ? formatTime(rec.checkIn) : '—'}</td>
-                    <td>${rec.checkOut ? formatTime(rec.checkOut) : '—'}</td>
-                    <td>${status}</td>
-                </tr>`;
-            });
-        }
+        let html = `<div class="text-center mb-8"><div class="flex gap-4 justify-center"><button id="checkInBtn" class="btn btn-primary" ${isCheckedIn ? 'disabled' : ''}>✅ Check In</button><button id="checkOutBtn" class="btn btn-danger" ${!isCheckedIn ? 'disabled' : ''}>⏰ Check Out</button></div><p class="mt-3 text-sm">${isCheckedIn ? '🟢 Currently checked in' : '⚪ Not checked in'}</p></div><h3 class="font-bold mb-4">📜 Attendance History</h3><div class="table-wrapper"><table class="data-table"><thead><tr><th>Date</th><th>Check In</th><th>Check Out</th><th>Status</th></tr></thead><tbody>`;
+        if(records.length === 0) html += '<tr><td colspan="4" class="text-center">No attendance records found</td></tr>';
+        else records.slice().reverse().forEach(rec => { html += `<tr><td>${rec.date}</td><td>${rec.checkIn ? formatTime(rec.checkIn) : '—'}</td><td>${rec.checkOut ? formatTime(rec.checkOut) : '—'}</td><td>${rec.late ? '<span class="badge badge-warning">Late</span>' : '<span class="badge badge-success">Present</span>'}</td></tr>`; });
         html += `</tbody></table></div>`;
         document.getElementById('empDashboardContent').innerHTML = html;
-        
-        let checkInBtn = document.getElementById('checkInBtn');
-        let checkOutBtn = document.getElementById('checkOutBtn');
-        if(checkInBtn) checkInBtn.addEventListener('click', handleCheckIn);
-        if(checkOutBtn) checkOutBtn.addEventListener('click', handleCheckOut);
+        document.getElementById('checkInBtn')?.addEventListener('click', handleCheckIn);
+        document.getElementById('checkOutBtn')?.addEventListener('click', handleCheckOut);
     }
     
     function handleCheckIn() {
@@ -781,19 +858,11 @@
         let now = new Date();
         let isLate = now.getHours() >= 10;
         let existing = attendance[currentEmployee.id].find(r => r.date === today);
-        if(existing?.checkIn) { 
-            alert("Already checked in today!"); 
-            return; 
-        }
-        if(existing) {
-            existing.checkIn = now.toISOString();
-            existing.late = isLate;
-            existing.checkOut = null;
-        } else {
-            attendance[currentEmployee.id].push({ date: today, checkIn: now.toISOString(), checkOut: null, late: isLate });
-        }
+        if(existing?.checkIn) { showToast("Already checked in today!", "error"); return; }
+        if(existing) { existing.checkIn = now.toISOString(); existing.late = isLate; existing.checkOut = null; }
+        else { attendance[currentEmployee.id].push({ date: today, checkIn: now.toISOString(), checkOut: null, late: isLate }); }
         saveData();
-        alert(`✅ Checked in at ${now.toLocaleTimeString()}${isLate ? ' (Late)' : ''}`);
+        showToast(`Checked in at ${now.toLocaleTimeString()}${isLate ? ' (Late)' : ''}`, "success");
         renderEmpAttendance();
         updateEmpStats();
     }
@@ -801,140 +870,88 @@
     function handleCheckOut() {
         let today = getTodayDate();
         let rec = attendance[currentEmployee.id].find(r => r.date === today);
-        if(!rec?.checkIn) { 
-            alert("No active check-in found!"); 
-            return; 
-        }
-        if(rec.checkOut) { 
-            alert("Already checked out today!"); 
-            return; 
-        }
+        if(!rec?.checkIn) { showToast("No active check-in found!", "error"); return; }
+        if(rec.checkOut) { showToast("Already checked out today!", "error"); return; }
         rec.checkOut = new Date().toISOString();
         saveData();
-        alert("✅ Checked out successfully!");
+        showToast("Checked out successfully!", "success");
         renderEmpAttendance();
         updateEmpStats();
     }
     
     function renderEmpLeave() {
         let bal = leaveBalance[currentEmployee.id];
-        let html = `
-            <div class="text-center">
-                <button id="applyLeaveBtn" class="btn btn-primary mb-6">📝 Apply for Leave</button>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="card p-4 text-center"><div class="text-2xl font-bold" style="color: #10b981">${bal?.Sick || 0}</div><div>Sick Leave</div></div>
-                    <div class="card p-4 text-center"><div class="text-2xl font-bold" style="color: #f59e0b">${bal?.Casual || 0}</div><div>Casual Leave</div></div>
-                    <div class="card p-4 text-center"><div class="text-2xl font-bold" style="color: #3b82f6">${bal?.Annual || 0}</div><div>Annual Leave</div></div>
-                </div>
-            </div>
-        `;
+        let html = `<div class="text-center"><button id="applyLeaveBtn" class="btn btn-primary mb-6">📝 Apply for Leave</button><div class="grid grid-cols-3 gap-4"><div class="card p-4 text-center"><div class="text-2xl font-bold" style="color: #10b981">${bal?.Sick || 0}</div><div>Sick Leave</div></div><div class="card p-4 text-center"><div class="text-2xl font-bold" style="color: #f59e0b">${bal?.Casual || 0}</div><div>Casual Leave</div></div><div class="card p-4 text-center"><div class="text-2xl font-bold" style="color: #3b82f6">${bal?.Annual || 0}</div><div>Annual Leave</div></div></div></div>`;
         document.getElementById('empDashboardContent').innerHTML = html;
-        let applyBtn = document.getElementById('applyLeaveBtn');
-        if(applyBtn) {
-            applyBtn.addEventListener('click', () => {
-                let type = prompt("Leave Type (Sick/Casual/Annual):");
-                let from = prompt("From Date (YYYY-MM-DD):");
-                let to = prompt("To Date (YYYY-MM-DD):");
-                let reason = prompt("Reason:");
-                if(type && from && to) {
-                    if(!leaveRequests[currentEmployee.id]) leaveRequests[currentEmployee.id] = [];
-                    leaveRequests[currentEmployee.id].push({ type, fromDate: from, toDate: to, reason, status: 'pending' });
-                    saveData();
-                    alert("✅ Leave request submitted!");
-                    showEmpTab('requests');
-                }
-            });
-        }
+        document.getElementById('applyLeaveBtn')?.addEventListener('click', () => {
+            let type = prompt("Leave Type (Sick/Casual/Annual):");
+            let from = prompt("From Date (YYYY-MM-DD):");
+            let to = prompt("To Date (YYYY-MM-DD):");
+            let reason = prompt("Reason:");
+            if(type && from && to) {
+                if(!leaveRequests[currentEmployee.id]) leaveRequests[currentEmployee.id] = [];
+                leaveRequests[currentEmployee.id].push({ type, fromDate: from, toDate: to, reason, status: 'pending' });
+                saveData();
+                showToast("Leave request submitted!", "success");
+                showEmpTab('requests');
+            }
+        });
     }
     
     function renderEmpWFH() {
         document.getElementById('empDashboardContent').innerHTML = `<div class="text-center"><button id="applyWFHBtn" class="btn btn-primary">🏠 Apply for WFH</button></div>`;
-        let applyBtn = document.getElementById('applyWFHBtn');
-        if(applyBtn) {
-            applyBtn.addEventListener('click', () => {
-                let date = prompt("Date (YYYY-MM-DD):");
-                let reason = prompt("Reason:");
-                if(date) {
-                    if(!wfhRequests[currentEmployee.id]) wfhRequests[currentEmployee.id] = [];
-                    wfhRequests[currentEmployee.id].push({ date, reason, status: 'pending' });
-                    saveData();
-                    alert("✅ WFH request submitted!");
-                    showEmpTab('requests');
-                }
-            });
-        }
+        document.getElementById('applyWFHBtn')?.addEventListener('click', () => {
+            let date = prompt("Date (YYYY-MM-DD):");
+            let reason = prompt("Reason:");
+            if(date) {
+                if(!wfhRequests[currentEmployee.id]) wfhRequests[currentEmployee.id] = [];
+                wfhRequests[currentEmployee.id].push({ date, reason, status: 'pending' });
+                saveData();
+                showToast("WFH request submitted!", "success");
+                showEmpTab('requests');
+            }
+        });
     }
     
     function renderEmpRequests() {
         let leaves = leaveRequests[currentEmployee.id] || [];
         let wfhs = wfhRequests[currentEmployee.id] || [];
         let html = '<h3 class="font-bold mb-4">📋 Leave Requests</h3>';
-        if(leaves.length === 0) {
-            html += '<p class="text-center p-4" style="color: var(--text-muted)">No leave requests</p>';
-        } else {
-            leaves.forEach(l => {
-                let statusClass = l.status === 'approved' ? 'badge-success' : l.status === 'rejected' ? 'badge-danger' : 'badge-warning';
-                html += `<div class="card p-3 mb-2"><strong>${l.type}</strong> (${l.fromDate} to ${l.toDate})<br><span class="badge ${statusClass} mt-1">${l.status}</span><p class="text-sm mt-1">${l.reason}</p></div>`;
-            });
-        }
+        if(leaves.length === 0) html += '<p class="text-center p-4" style="color: var(--text-muted)">No leave requests</p>';
+        else leaves.forEach(l => { let c = l.status === 'approved' ? 'badge-success' : l.status === 'rejected' ? 'badge-danger' : 'badge-warning'; html += `<div class="card p-3 mb-2"><strong>${l.type}</strong> (${l.fromDate} to ${l.toDate})<br><span class="badge ${c} mt-1">${l.status}</span><p class="text-sm mt-1">${l.reason}</p></div>`; });
         html += '<h3 class="font-bold mt-6 mb-4">🏠 WFH Requests</h3>';
-        if(wfhs.length === 0) {
-            html += '<p class="text-center p-4" style="color: var(--text-muted)">No WFH requests</p>';
-        } else {
-            wfhs.forEach(w => {
-                let statusClass = w.status === 'approved' ? 'badge-success' : w.status === 'rejected' ? 'badge-danger' : 'badge-warning';
-                html += `<div class="card p-3 mb-2"><strong>WFH on ${w.date}</strong><br><span class="badge ${statusClass} mt-1">${w.status}</span><p class="text-sm mt-1">${w.reason}</p></div>`;
-            });
-        }
+        if(wfhs.length === 0) html += '<p class="text-center p-4" style="color: var(--text-muted)">No WFH requests</p>';
+        else wfhs.forEach(w => { let c = w.status === 'approved' ? 'badge-success' : w.status === 'rejected' ? 'badge-danger' : 'badge-warning'; html += `<div class="card p-3 mb-2"><strong>WFH on ${w.date}</strong><br><span class="badge ${c} mt-1">${w.status}</span><p class="text-sm mt-1">${w.reason}</p></div>`; });
         document.getElementById('empDashboardContent').innerHTML = html;
     }
 
-    // ========== LOGIN HANDLER (FIXED) ==========
+    // ========== LOGIN ==========
     document.getElementById('loginForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        
         let userId = document.getElementById('userId').value.trim();
         let password = document.getElementById('password').value;
-        
-        // Load data first
         loadData();
-        
-        console.log("Login attempt:", userId, password);
-        console.log("Available employees:", employees);
-        
-        // Check HR Admin
         if(userId === "HR001" && password === "admin123") {
             saveLoginState('hr', userId);
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('hrDashboard').style.display = 'block';
             showHRTab('employees');
             updateHRStats();
-        } 
-        // Check Employee
-        else if(employees[userId] && employees[userId].password === password) {
+            showToast("Welcome HR Admin!", "success");
+        } else if(employees[userId] && employees[userId].password === password) {
             saveLoginState('employee', userId);
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('employeeDashboard').style.display = 'block';
             loadEmployeeDashboard(userId);
-        } 
-        else {
-            alert("❌ Invalid credentials!\n\nHR Admin: HR001 / admin123\nEmployee: EMP001 / pass123");
+            showToast(`Welcome ${employees[userId].name}!`, "success");
+        } else {
+            showToast("Invalid credentials!", "error");
         }
     });
     
-    document.getElementById('hrLogoutBtn')?.addEventListener('click', () => {
-        clearLoginState();
-        document.getElementById('hrDashboard').style.display = 'none';
-        document.getElementById('loginContainer').style.display = 'flex';
-    });
+    document.getElementById('hrLogoutBtn')?.addEventListener('click', () => { clearLoginState(); document.getElementById('hrDashboard').style.display = 'none'; document.getElementById('loginContainer').style.display = 'flex'; showToast("Logged out!", "success"); });
+    document.getElementById('empLogoutBtn')?.addEventListener('click', () => { clearLoginState(); document.getElementById('employeeDashboard').style.display = 'none'; document.getElementById('loginContainer').style.display = 'flex'; showToast("Logged out!", "success"); });
     
-    document.getElementById('empLogoutBtn')?.addEventListener('click', () => {
-        clearLoginState();
-        document.getElementById('employeeDashboard').style.display = 'none';
-        document.getElementById('loginContainer').style.display = 'flex';
-    });
-    
-    // ========== INIT ==========
     loadData();
     checkSession();
 </script>
